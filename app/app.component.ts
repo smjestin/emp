@@ -3,6 +3,8 @@ import {DemoService} from './demo.service';
 import {LoginFormComponent} from './login-form.component';
 import {Mortgage} from './mortgage';
 import { Login }    from './login';
+import {Employment} from "./employment";
+import {MortgageApplication} from "./mortgage-application";
 
 @Component({
   selector: 'demo-app',
@@ -13,7 +15,7 @@ export class AppComponent {
   public logins;
   public password;
   
-  public mortgageApplication;
+  public mortgageApplication: MortgageApplication;
   public empInfo;
   
   active = true;
@@ -59,7 +61,7 @@ export class AppComponent {
   }
   
   onSubmitEmpInfo() {
-  	empInfo = "{ salary: " + this.model.salary + ", start_date: '" + this.model.start_date + "'}";
+	  let empInfo = new Employment(this.model.salary, this.model.start_date.toString());
   	console.log(empInfo); 
   	var getMBR = this._demoService.getMBR(this.mortgage.mortID).subscribe(
       data => { this.mortgageApplication = data },

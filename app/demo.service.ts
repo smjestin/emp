@@ -1,7 +1,8 @@
 import {Injectable} from 'angular2/core';
-import {Http, Header, Response, RequestOptions} from 'angular2/http';
+import {Http, Response, RequestOptions, Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Rx';
 import {MortgageApplication} from './mortgage-application'
+import {Employment} from "./employment";
 
 @Injectable()
 export class DemoService {
@@ -22,16 +23,15 @@ export class DemoService {
   	return this.http.get(this.empURL + mortID).map((res:Response) => res.json());
   }
   
-  putMBR(mortgageApplication: string, empInfo: string) {
+  putMBR(mortgageApplication: MortgageApplication, empInfo: Employment) {
   	console.log(mortgageApplication);
   	mortgageApplication.employment = empInfo;
-  	let body = mortgageApplication;
-  	body.employment = empInfo;
+  	let body = JSON.stringify(mortgageApplication);
   	console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
     return this.http.put(this.empURL + this.mortID, body, options)
             .map((res:Response) => res.json());
-  }}
+  }
 }

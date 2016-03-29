@@ -1,7 +1,7 @@
 export class Mortgage {
 
   constructor(
-    public mortID: string,
+    public mortID: string
   ) {  }
 
 }
