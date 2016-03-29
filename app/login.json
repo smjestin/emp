@@ -1,0 +1,5 @@
+[
+  { "username": "admin", "password": "123", "name": "Administrator", "salary": 10000, "start_date": "May 12th, 2015"  },
+  { "username": "test", "password": "123", "name": "Tester Testington", "salary": 5000, "start_date": "May 12th, 2013" },
+  { "username": "test1", "password": "123", "name": "Test the Second", "salary": 500000, "start_date": "May 12th, 2012" }
+]

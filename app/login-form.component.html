@@ -1,0 +1,82 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>EMP Login</h1>
+    <form *ngIf="active" (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
+      <div [hidden]="valid" class="alert alert-danger">
+          Invalid username/password combination!
+      </div>
+      <div class="form-group">
+        <label for="name">Username:</label>
+        <input type="text" class="form-control" required
+          [(ngModel)]="model.username"
+            ngControl="username"  #name="ngForm" >
+        <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Name is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="alterEgo">Password:</label>
+        <input type="password" class="form-control" required
+          [(ngModel)]="model.password"
+            ngControl="password" #name="ngForm" >
+         <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Password is required
+         </div>
+      </div>		
+      <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid">Submit</button>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>Welcome, {{ model.username }}! Here's your employee info:</h2>
+    <div class="row">
+      <div class="col-xs-3">Username</div>
+      <div class="col-xs-9  pull-left">{{ model.username }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Password</div>
+      <div class="col-xs-9 pull-left">{{ model.password }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Full name:</div>
+      <div class="col-xs-9 pull-left">{{ model.name }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Salary:</div>
+      <div class="col-xs-9 pull-left">${{ model.salary }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Start Date:</div>
+      <div class="col-xs-9 pull-left">{{ model.start_date }}</div>
+    </div>
+    <br>
+    <h3>Submit to EMP:</h3>
+    <form *ngIf="active" (ngSubmit)="onSubmitEmpInfo()" #loginForm="ngForm">
+      <div class="form-group">
+        <label for="name">Mortgage ID:</label>
+        <input type="text" class="form-control" required
+          [(ngModel)]="mortgage.mortID"
+            ngControl="mortID"  #name="ngForm" >
+      </div>
+      <button type="submit" class="btn btn-default" [disabled]="!loginForm.form.valid">Submit</button>
+    </form>
+  </div>
+</div>
+<hr>
+<style>
+  .no-style .ng-valid {
+  border-left: 1px  solid #CCC
+}
+
+  .no-style .ng-invalid {
+  border-left: 1px  solid #CCC
+}
+</style>
+
+
+<!-- 
+Copyright 2016 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->
