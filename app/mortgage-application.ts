@@ -1,12 +1,14 @@
+import { Employment }    from './employment';
+
 export class MortgageApplication {
-    applicantName: string;
-    mortgageValue: number;
-    houseID: number;
-    mortgageID: string;
-    
-    constructor() {
-        this.applicantName = '';
-        this.mortgageValue = 0;
-        this.houseID = 0;
-    }
-};
+
+  constructor(
+    public applicantName: string,
+    public houseID: number,
+    public insuranceQuote: Object,
+    public mortgageID: string,
+    public mortgageValue: number,
+    public employment: Employment
+  ) {  }
+
+}

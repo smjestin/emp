@@ -1,8 +1,10 @@
-import {Component} from 'angular2/core';
-import {DemoService} from './demo.service';
-import {LoginFormComponent} from './login-form.component';
-import {Mortgage} from './mortgage';
+import { Component } from 'angular2/core';
+import { DemoService } from './demo.service';
+import { LoginFormComponent } from './login-form.component';
+import { Mortgage } from './mortgage';
 import { Login }    from './login';
+import { MortgageApplication } from './mortgage-application';
+import { Employment } from './employment';
 
 @Component({
   selector: 'demo-app',
@@ -13,7 +15,8 @@ export class AppComponent {
   public logins;
   public password;
   
-  public mortgageApplication;
+  mortgageApplication = MortgageApplication();
+  empInfo = Employment();
   public empInfo;
   
   active = true;
@@ -36,6 +39,7 @@ export class AppComponent {
   onLoginSubmit() {
 	var password = "";
 	var location = -1;
+	console.log(this.logins);
   	for(var i = 0; i < this.logins.length; i++) {
   		if(this.logins[i]["username"] == this.model.username) {
   			password = this.logins[i]["password"];
@@ -59,13 +63,13 @@ export class AppComponent {
   }
   
   onSubmitEmpInfo() {
-  	empInfo = "{ salary: " + this.model.salary + ", start_date: '" + this.model.start_date + "'}";
-  	console.log(empInfo); 
+  	empInfo.salary = this.model.salary;
+  	empInfo.start_date = this.model.start_date;
   	var getMBR = this._demoService.getMBR(this.mortgage.mortID).subscribe(
       data => { this.mortgageApplication = data },
       err => console.error(err),
       () => this._demoService.putMBR(this.mortgageApplication, empInfo).subscribe(
-      	data => console.log('done mortgage processing!'),
+      	data => console.log('done mortgage processing!' + this.mortgageApplication),
       	err => console.error(err)
       	)
       );
