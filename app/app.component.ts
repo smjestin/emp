@@ -1,15 +1,20 @@
-import {Component} from 'angular2/core';
+import {Component, OnInit} from 'angular2/core';
 import {DemoService} from './demo.service';
 import {Mortgage} from './mortgage';
 import { Login }    from './login';
 import {Employment} from "./employment";
 import {MortgageApplication} from "./mortgage-application";
+import {HTTP_PROVIDERS} from "angular2/http";
 
 @Component({
   selector: 'demo-app',
-  templateUrl: 'app/login-form.component.html'
+  templateUrl: 'app/login-form.component.html',
+    providers: [
+        HTTP_PROVIDERS,
+        DemoService
+    ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   public logins;
 
@@ -21,10 +26,11 @@ export class AppComponent {
   submitted = false;
   mortgage = new Mortgage('0');
 
-  constructor(private _demoService: DemoService) { }
-  ngOnInit() { this.getLogins(); }
-  
-  getLogins() {
+    ngOnInit() { this.getLogins(); }
+    
+    constructor(private _demoService: DemoService) { }
+
+    getLogins() {
     this._demoService.getLogins().subscribe(
       data => { this.logins = data },
       err => console.error(err),
