@@ -1,15 +1,15 @@
 import {Injectable} from 'angular2/core';
 import {Http, Response, RequestOptions, Headers} from 'angular2/http';
 import {Observable} from 'rxjs/Rx';
-import {MortgageApplication} from './mortgage-application'
-import {Employment} from "./employment";
+import {MortgageApplication} from './models/mortgage-application';
+import {Employment} from './employment';
 
 @Injectable()
 export class DemoService {
 
   constructor(private http:Http) { }
 
-  private loginURL = 'app/login.json';
+  private loginURL = 'http://54.175.15.171:3000/api/employees';
   private empURL = 'http://ec2-52-91-177-77.compute-1.amazonaws.com/api/MortgageApplications/';
   private mortID; 
 
@@ -25,6 +25,7 @@ export class DemoService {
   
   putMBR(mortgageApplication: MortgageApplication, empInfo: Employment) {
   	console.log(mortgageApplication);
+  //56fafa1d64a8298953f3f1af
   	mortgageApplication.employment = empInfo;
   	let body = JSON.stringify(mortgageApplication);
   	console.log(body);
