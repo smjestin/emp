@@ -1,14 +1,12 @@
 export class Login {
 
-  constructor(
-    public id: number,
-    public username: string,
-    public password: string,
-    public name: string,
-    public salary: number,
-    public start_date: date
-  ) {  }
-
+  public username: string;
+  public password: string;
+  public name: string;
+  public salary: number;
+  public start_date: string;
+  
+  constructor() {  }
 }
 
 

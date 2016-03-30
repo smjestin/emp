@@ -1,6 +1,5 @@
 import {Component} from 'angular2/core';
 import {DemoService} from './demo.service';
-import {LoginFormComponent} from './login-form.component';
 import {Mortgage} from './mortgage';
 import { Login }    from './login';
 import {Employment} from "./employment";
@@ -13,16 +12,14 @@ import {MortgageApplication} from "./mortgage-application";
 export class AppComponent {
 
   public logins;
-  public password;
-  
+
   public mortgageApplication: MortgageApplication;
-  public empInfo;
-  
+
   active = true;
   valid = true;
   model = new Login();
   submitted = false;
-  mortgage = new Mortgage();
+  mortgage = new Mortgage('0');
 
   constructor(private _demoService: DemoService) { }
   ngOnInit() { this.getLogins(); }
@@ -50,11 +47,11 @@ export class AppComponent {
   	}
   	else {
   		console.log("Invalid password.");
-  		valid = false;
+  		this.valid = false;
   	}
   }
   
-  loadModel(location: int) {
+  loadModel(location: number) {
   	this.model.name = this.logins[location]["name"];
   	this.model.salary = this.logins[location]["salary"];
   	this.model.start_date = this.logins[location]["start_date"];
@@ -63,7 +60,7 @@ export class AppComponent {
   onSubmitEmpInfo() {
 	  let empInfo = new Employment(this.model.salary, this.model.start_date.toString());
   	console.log(empInfo); 
-  	var getMBR = this._demoService.getMBR(this.mortgage.mortID).subscribe(
+  	this._demoService.getMBR(this.mortgage.mortID).subscribe(
       data => { this.mortgageApplication = data },
       err => console.error(err),
       () => this._demoService.putMBR(this.mortgageApplication, empInfo).subscribe(
