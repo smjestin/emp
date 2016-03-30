@@ -2,8 +2,11 @@
   <div [hidden]="submitted">
     <h1>EMP Login</h1>
     <form *ngIf="active" (ngSubmit)="onLoginSubmit()" #loginForm="ngForm">
-      <div [hidden]="valid" class="alert alert-danger">
+      <div [hidden]="validCombination" class="alert alert-danger">
           Invalid username/password combination!
+      </div>
+      <div [hidden]="!processed" class="alert alert-success">
+          Mortgage ID has been passed to MBR!
       </div>
       <div class="form-group">
         <label for="name">Username:</label>
@@ -53,6 +56,9 @@
     <br>
     <h3>Submit to EMP:</h3>
     <form *ngIf="active" (ngSubmit)="onSubmitEmpInfo()" #loginForm="ngForm">
+      <div [hidden]="valid" class="alert alert-danger">
+          Invalid mortgage ID.
+      </div>
       <div class="form-group">
         <label for="name">Mortgage ID:</label>
         <input type="text" class="form-control" required

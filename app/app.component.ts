@@ -1,10 +1,10 @@
-import {Component, OnInit} from 'angular2/core';
-import {DemoService} from './demo.service';
-import {Mortgage} from './mortgage';
+import { Component, OnInit } from 'angular2/core';
+import { DemoService } from './demo.service';
+import { Mortgage } from './mortgage';
 import { Login }    from './login';
-import {Employment} from "./employment";
-import {MortgageApplication} from "./mortgage-application";
-import {HTTP_PROVIDERS} from "angular2/http";
+import { Employment } from "./employment";
+import { MortgageApplication } from "./mortgage-application";
+import { HTTP_PROVIDERS } from "angular2/http";
 
 @Component({
   selector: 'demo-app',
@@ -22,8 +22,11 @@ export class AppComponent implements OnInit {
 
   active = true;
   valid = true;
+  validCombination = true;
+  processed = false;
   model = new Login();
   submitted = false;
+  correctPassword = true;
   mortgage = new Mortgage('0');
 
     ngOnInit() { this.getLogins(); }
@@ -49,11 +52,12 @@ export class AppComponent implements OnInit {
   	}
   	if(password == this.model.password) {
   		this.submitted = true;
+  		this.validCombination = true;
   		this.loadModel(location);
   	}
   	else {
   		console.log("Invalid password.");
-  		this.valid = false;
+  		this.validCombination = false;
   	}
   }
   
@@ -64,14 +68,14 @@ export class AppComponent implements OnInit {
   }
   
   onSubmitEmpInfo() {
-	  let empInfo = new Employment(this.model.salary, this.model.start_date.toString());
+	let empInfo = new Employment(this.model.salary, this.model.start_date.toString());
   	console.log(empInfo); 
   	this._demoService.getMBR(this.mortgage.mortID).subscribe(
       data => { this.mortgageApplication = data },
-      err => console.error(err),
+      err => this.valid = false,
       () => this._demoService.putMBR(this.mortgageApplication, empInfo).subscribe(
-      	data => console.log('done mortgage processing!'),
-      	err => console.error(err)
+      	data => this.processed = true, this.submitted = false,
+      	err => this.valid = false
       	)
       );
   }

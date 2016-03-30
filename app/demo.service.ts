@@ -22,12 +22,10 @@ export class DemoService {
   	return this.http.get(this.empURL + mortID).map((res:Response) => res.json());
   }
 
-    //56fafa1d64a8298953f3f1af
-    putMBR(mortgageApplication: MortgageApplication, empInfo: Employment) {
-  	console.log(mortgageApplication);
+  //56fafa1d64a8298953f3f1af
+  putMBR(mortgageApplication: MortgageApplication, empInfo: Employment) {
   	mortgageApplication.employment = empInfo;
   	let body = JSON.stringify(mortgageApplication);
-  	console.log(body);
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
